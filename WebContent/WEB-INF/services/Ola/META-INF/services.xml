@@ -1,0 +1,32 @@
+<service name="Ola" >
+	<Description>
+		Webservice olá mundo
+	</Description>
+	<messageReceivers>
+		<messageReceiver mep="http://www.w3.org/ns/wsdl/in-only" class="org.apache.axis2.rpc.receivers.RPCInOnlyMessageReceiver" />
+		<messageReceiver  mep="http://www.w3.org/ns/wsdl/in-out"  class="org.apache.axis2.rpc.receivers.RPCMessageReceiver"/>
+	</messageReceivers>
+	<parameter name="ServiceClass" locked="false">com.fiap.exemplo.Ola</parameter>
+	
+	<parameter name="InflowSecurity">
+		<action>
+			<items>Timestamp Signature Encrypt</items>
+			<user>helena</user>
+			<passwordCallbackClass>com.fiap.exemplo.PWCallback</passwordCallbackClass>
+			<signaturePropFile>security.properties</signaturePropFile>
+			<signatureKeyIdentifier>SKIKeyIdentifier</signatureKeyIdentifier>
+			<encryptionKeyIdentifier>SKIKeyIdentifier</encryptionKeyIdentifier>
+			<encryptionUser>helena</encryptionUser>
+			<signatureParts>{Element}{http://schemas.xmlsoap.org/soap/envelope/}Body
+			</signatureParts>
+			<optimizeParts>//xenc:EncryptedData/xenc:CipherData/xenc:CipherValue</optimizeParts>
+		</action>
+	</parameter>
+	
+	<parameter name="OutflowSecurity">
+		<action>
+			<items>Timestamp</items>
+		</action>
+	</parameter>
+		
+</service>
